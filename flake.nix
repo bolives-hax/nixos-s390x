@@ -18,12 +18,12 @@
             });
             # numpy 1 & 2 can't be fixed trough overrides thus
             numpy_1 = (pself.callPackage ./pkgs/numpy-1-fix.nix { }).overrideAttrs (old: {
-              #inherit ( psuper.numpy_1) patches;
-              inherit (old) patches;
+              inherit (psuper.numpy_1) patches;
+              #inherit (pself.numpy_1) patches;
             });
             numpy_2 = (pself.callPackage ./pkgs/numpy-2-fix.nix { }).overrideAttrs (old: {
-              #inherit ( psuper.numpy_2) patches;
-              inherit (old) patches;
+              inherit (psuper.numpy_2) patches;
+              #inherit (old) patches;
             });
           };
         };
@@ -94,11 +94,11 @@
           postPatch =
             old.postPatch
             + ''
-                  				rm tests/aws-cpp-sdk-core-tests/utils/memory/AWSMemoryTest.cpp
-                  				rm tests/aws-cpp-sdk-core-tests/utils/event/EventStreamDecoderTest.cpp
-                  				rm tests/aws-cpp-sdk-core-tests/utils/event/EventStreamTest.cpp
-                  				rm tests/aws-cpp-sdk-core-tests/utils/HashingUtilsTest.cpp
-              			'';
+              rm tests/aws-cpp-sdk-core-tests/utils/memory/AWSMemoryTest.cpp
+              rm tests/aws-cpp-sdk-core-tests/utils/event/EventStreamDecoderTest.cpp
+              rm tests/aws-cpp-sdk-core-tests/utils/event/EventStreamTest.cpp
+              rm tests/aws-cpp-sdk-core-tests/utils/HashingUtilsTest.cpp
+            '';
         });
         # TODO can we maybe patch the tests that fail rather than disabling them all?
         tpm2-tss = super.tpm2-tss.overrideAttrs (old: {
