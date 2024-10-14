@@ -6,14 +6,22 @@
   ...
 }:
 {
-  options = with lib; {
-    s390xIso = mkOption {
-      type = types.package;
-      default = pkgs.hello;
+  /*
+    TODO
+    options = with lib; {
     };
-  };
+  */
 
   config = {
+    /*
+      TODO V is this the right approach ?
+      also I mean tbh grub also does exist on s390x
+      but not as a primary bootloader like on x86 or sth
+      but i didn't package it yet and I wonder if we can even
+      embed it here easily as the bigimg and what one would
+      gain honestly (except multiple boot entries maybe
+    */
+    boot.loader.grub.enable = lib.mkDefault false;
     boot.initrd.availableKernelModules = [
       "squashfs"
       "iso9660" # "uas"
@@ -100,7 +108,7 @@
           buildPhase =
             let
               paramFile = pkgs.writeText "params.txt" ''
-                  init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
+                init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
               ''; # one can append "copytoram" here btw
             in
             ''

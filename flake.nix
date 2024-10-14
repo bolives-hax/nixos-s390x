@@ -143,7 +143,9 @@
                 the kernel module currently seems to be broken
                 			figure out if tpm exists and if how it works on s390x
               */
+              # there are some issues with tpm atm but not sure if its needed in the mainframe
               systemd.tpm2.enable = false;
+              boot.initrd.tpm2.enable = false;
               /*
                 TODO fix the default modules to not include
                 			kernel modules unavil on s390x
