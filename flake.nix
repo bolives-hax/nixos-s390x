@@ -138,6 +138,9 @@
               # allHardwareFixed	
               #iso
             ];
+            systemd = {
+              tpm2.enable = false;
+            };
             boot.initrd = {
               /*
                 the kernel module currently seems to be broken
@@ -145,7 +148,6 @@
               */
               # there are some issues with tpm atm but not sure if its needed in the mainframe
               systemd.tpm2.enable = false;
-              initrd.tpm2.enable = false;
               /*
                 TODO fix the default modules to not include
                 			kernel modules unavil on s390x
