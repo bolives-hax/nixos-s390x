@@ -61,7 +61,7 @@ in
     mkIf cfg.enable {
       system.build.installBootLoader =
         with cfg;
-        "${builder} -i ${device} -g ${toString configurationLimit} ${timeout} -c";
+        "${builder} -g ${toString configurationLimit} ${timeout} -c";
       system.boot.loader.id = "zipl";
     };
 }
