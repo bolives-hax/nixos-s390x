@@ -101,9 +101,10 @@ lib.warnIf
 
       substituteInPlace Makefile \
       --replace-fail "LIB_DIRS = libvtoc libzds libdasd libccw libvmcp libekmfweb \\" "LIB_DIRS = #\\" \
-      --replace-fail "TOOL_DIRS = zipl zdump fdasd dasdfmt dasdview tunedasd \\" "TOOL_DIRS = zipl dasdfmt zfcpdump netboot zdev#\\"
+      --replace-fail "TOOL_DIRS = zipl zdump fdasd dasdfmt dasdview tunedasd \\" "TOOL_DIRS = zipl dasdfmt netboot zdev#\\"
 
     '';
+      #--replace-fail "TOOL_DIRS = zipl zdump fdasd dasdfmt dasdview tunedasd \\" "TOOL_DIRS = zipl dasdfmt zfcpdump netboot zdev#\\"
     buildPhase =
       let
         zfcpdump =
@@ -178,8 +179,8 @@ cp zfcpdump/* $out/bin
       # as for now im disabling that
       #
       # TODO why is pkg-config not providing json_c properly?
+        # cp ${zfcpdump}/bin/* zfcpdump
       ''
-        cp ${zfcpdump}/bin/* zfcpdump
             substituteInPlace zfcpdump/Makefile \
             --replace-fail "all: check_dep \$(ZFCPDUMP_INITRD) scripts" "all: $(ZFCPDUMP_INITRD) scripts"
 
